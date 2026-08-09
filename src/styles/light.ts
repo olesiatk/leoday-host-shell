@@ -9,7 +9,7 @@ const lightTheme: AppStyleSet = {
   title: { color: '#57B12D', margin: 0, fontSize: '32px', fontFamily: "'Montserrat', sans-serif", fontWeight: 900, textTransform: 'uppercase' },
   status: { color: '#57606a', marginTop: '8px' },
   card: {
-    background: 'linear-gradient(135deg, #0f3d24 0%, #2e1065 100%)',
+    background: 'linear-gradient(135deg, #0f3d24 0%, #a68fd0 100%)',
     borderRadius: '12px',
     padding: '20px',
     border: '1px solid rgba(255, 255, 255, 0.08)',
