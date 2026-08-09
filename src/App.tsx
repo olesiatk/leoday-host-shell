@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect, Suspense, type CSSProperties, type ReactNode } from 'react';
 
 // Lazy loading all 5 Micro-Frontends
 const MoodMeter = React.lazy(() => import('remoteMood/MoodMeter'));
@@ -30,8 +30,16 @@ function GameLauncher() {
   );
 }
 
-class ErrorBoundary extends React.Component {
-  state = { hasError: false };
+interface ErrorBoundaryProps {
+  children: ReactNode;
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+}
+
+class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  state: ErrorBoundaryState = { hasError: false };
   static getDerivedStateFromError() { return { hasError: true }; }
   render() {
     if (this.state.hasError) {
@@ -41,11 +49,18 @@ class ErrorBoundary extends React.Component {
   }
 }
 
+interface MoodUpdatedDetail {
+  message: string;
+}
+
 export function App() {
   const [userStatus, setUserStatus] = useState('Welcome to LEOday Dashboard!');
 
   useEffect(() => {
-    const handleMoodUpdate = (e) => setUserStatus(`Current Vibe: ${e.detail.message}`);
+    const handleMoodUpdate = (e: Event) => {
+      const { detail } = e as CustomEvent<MoodUpdatedDetail>;
+      setUserStatus(`Current Vibe: ${detail.message}`);
+    };
     window.addEventListener('leoday:mood-updated', handleMoodUpdate);
     return () => window.removeEventListener('leoday:mood-updated', handleMoodUpdate);
   }, []);
@@ -87,7 +102,7 @@ export function App() {
   );
 }
 
-const styles = {
+const styles: Record<string, CSSProperties> = {
   container: { fontFamily: "'Source Sans Pro', sans-serif", backgroundColor: '#0d0f12', color: '#e6edf3', padding: '32px 40px', minHeight: '100%'},
   // container: { fontFamily: "'Source Sans Pro', sans-serif", backgroundColor: 'white', color: 'black', padding: '40px'},
   header: { paddingBottom: '20px',},

@@ -25,7 +25,7 @@ export default defineConfig({
   preview: {
     host: true,
     port: 3000,
-    strictPort: true
+    strictPort: true,
   },
   build: { modulePreload: false, target: 'esnext', minify: false, cssCodeSplit: false },
 });
