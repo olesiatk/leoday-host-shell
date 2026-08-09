@@ -2,21 +2,22 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import federation from '@originjs/vite-plugin-federation';
 
-// Host used to reach the remote MFEs during dev. Defaults to localhost;
-// override with REMOTE_HOST=<lan-ip> when testing from another device on the network.
-const remoteHost = process.env.REMOTE_HOST || 'localhost';
+// Only prefix asset paths when building for the standalone GitHub Pages
+// deploy; a plain `vite build` (used locally / by other consumers) stays at '/'.
+const base = process.env.GH_PAGES === 'true' ? '/leoday-host-shell/' : '/';
 
 export default defineConfig({
+  base,
   plugins: [
     react(),
     federation({
       name: 'host_shell',
       remotes: {
-        remoteMood: `http://${remoteHost}:3001/assets/remoteEntry.js`,
-        remoteDayToday: `http://${remoteHost}:3002/assets/remoteEntry.js`,
-        remoteTeam: `http://${remoteHost}:3003/assets/remoteEntry.js`,
-        remoteAgenda: `http://${remoteHost}:3004/assets/remoteEntry.js`,
-        remoteGame1: `http://${remoteHost}:3006/assets/remoteEntry.js`,
+        remoteMood: `https://olesiatk.github.io/leoday-remote-mood/assets/remoteEntry.js`,
+        remoteDayToday: `https://olesiatk.github.io/leoday-remote-daytoday/assets/remoteEntry.js`,
+        remoteTeam: `https://olesiatk.github.io/leoday-remote-team/assets/remoteEntry.js`,
+        remoteAgenda: `https://olesiatk.github.io/leoday-remote-agenda/assets/remoteEntry.js`,
+        remoteGame1: `https://olesiatk.github.io/leoday-remote-game1/assets/remoteEntry.js`,
       },
       shared: ['react', 'react-dom'],
     }),
