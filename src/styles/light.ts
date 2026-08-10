@@ -4,12 +4,12 @@ import type { AppStyleSet } from './types';
 // widgets rendered inside them (MoodMeter, DayToday, etc.) hardcode white/light
 // text, so a light card would make that text unreadable.
 const lightTheme: AppStyleSet = {
-  container: { fontFamily: "'Source Sans Pro', sans-serif", backgroundColor: '#f6f8fa', color: '#1c2128', padding: '32px 40px', minHeight: '100%' },
+  container: { fontFamily: "'Source Sans Pro', sans-serif", backgroundColor: '#dcf8ed', color: '#1c2128', padding: '32px 40px', minHeight: '100%' },
   header: { paddingBottom: '20px' },
   title: { color: '#57B12D', margin: 0, fontSize: '32px', fontFamily: "'Montserrat', sans-serif", fontWeight: 900, textTransform: 'uppercase' },
   status: { color: '#57606a', marginTop: '8px' },
   card: {
-    background: 'linear-gradient(135deg, #0f3d24 0%, #a68fd0 100%)',
+    background: 'linear-gradient(145deg, #196749 0%, #451764 100%)',
     borderRadius: '12px',
     padding: '20px',
     border: '1px solid rgba(255, 255, 255, 0.08)',
