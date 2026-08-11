@@ -84,7 +84,7 @@ export function App() {
       <style>{`
         .leoday-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
           gap: 20px;
         }
       `}</style>
