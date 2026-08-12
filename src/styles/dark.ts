@@ -1,7 +1,7 @@
 import type { AppStyleSet } from './types';
 
 const darkTheme: AppStyleSet = {
-  container: { fontFamily: "'Source Sans Pro', sans-serif", backgroundColor: '#0d0f12', color: '#e6edf3', padding: '32px 40px', minHeight: '100%' },
+  container: { fontFamily: "'Source Sans Pro', sans-serif", backgroundColor: '#0d0f12', color: '#e6edf3', padding: '32px', minHeight: '100%' },
   header: { paddingBottom: '20px' },
   title: { color: '#57B12D', margin: 0, fontSize: '32px', fontFamily: "'Montserrat', sans-serif", fontWeight: 900, textTransform: 'uppercase' },
   status: { color: '#8b949e', marginTop: '8px' },
