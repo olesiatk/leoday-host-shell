@@ -4,7 +4,7 @@ import lightTheme from './styles/light';
 import type { AppStyleSet } from './styles/types';
 
 // Switch which visual theme is shown: 'dark' or 'light'
-const ACTIVE_THEME: 'dark' | 'light' = 'dark';
+const ACTIVE_THEME: 'dark' | 'light' = 'light';
 
 const THEMES: Record<'dark' | 'light', AppStyleSet> = { dark: darkTheme, light: lightTheme };
 const styles = THEMES[ACTIVE_THEME];
