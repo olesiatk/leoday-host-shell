@@ -16,6 +16,14 @@ const TeamJoin = React.lazy(() => import('remoteTeam/TeamJoin'));
 const Agenda = React.lazy(() => import('remoteAgenda/Agenda'));
 const MiniGame = React.lazy(() => import('remoteGame1/Game'));
 
+function Spinner() {
+  return (
+    <div className="leoday-spinner-wrap">
+      <div className="leoday-spinner" />
+    </div>
+  );
+}
+
 function GameLauncher() {
   const [started, setStarted] = useState(false);
 
@@ -31,7 +39,7 @@ function GameLauncher() {
     <div>
       <button style={styles.stopBtn} onClick={() => setStarted(false)}>■ Stop game</button>
       <ErrorBoundary>
-        <Suspense fallback="Loading...">
+        <Suspense fallback={<Spinner />}>
           <MiniGame />
         </Suspense>
       </ErrorBoundary>
@@ -87,13 +95,35 @@ export function App() {
           grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
           gap: 20px;
         }
+
+        .leoday-spinner-wrap {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 8px;
+        }
+
+        .leoday-spinner {
+          width: 32px;
+          height: 32px;
+          border: 4px solid rgba(34, 197, 94, 0.25);
+          border-top-color: #22c55e;
+          border-radius: 50%;
+          animation: leoday-spin 0.8s linear infinite;
+        }
+
+        @keyframes leoday-spin {
+          to {
+            transform: rotate(360deg);
+          }
+        }
       `}</style>
 
       <main className="leoday-grid">
-        <section style={styles.card}><ErrorBoundary><Suspense fallback="Loading..."><MoodMeter /></Suspense></ErrorBoundary></section>
-        <section style={styles.card}><ErrorBoundary><Suspense fallback="Loading..."><DayToday /></Suspense></ErrorBoundary></section>
-        <section style={styles.card}><ErrorBoundary><Suspense fallback="Loading..."><Agenda /></Suspense></ErrorBoundary></section>
-        <section style={styles.card}><ErrorBoundary><Suspense fallback="Loading..."><TeamJoin /></Suspense></ErrorBoundary></section>
+        <section style={styles.card}><ErrorBoundary><Suspense fallback={<Spinner />}><MoodMeter /></Suspense></ErrorBoundary></section>
+        <section style={styles.card}><ErrorBoundary><Suspense fallback={<Spinner />}><DayToday /></Suspense></ErrorBoundary></section>
+        <section style={styles.card}><ErrorBoundary><Suspense fallback={<Spinner />}><Agenda /></Suspense></ErrorBoundary></section>
+        <section style={styles.card}><ErrorBoundary><Suspense fallback={<Spinner />}><TeamJoin /></Suspense></ErrorBoundary></section>
         <section style={styles.card}><GameLauncher /></section>
         <section style={styles.card}>
           <div style={styles.adBlock}>
