@@ -27,3 +27,15 @@ declare module 'remoteGame1/Game' {
   const Game: ComponentType;
   export default Game;
 }
+
+declare module 'remoteGame2/Game' {
+  import type { ComponentType } from 'react';
+  const Game: ComponentType;
+  export default Game;
+}
+
+declare module 'remoteGame3/Game' {
+  import type { ComponentType } from 'react';
+  const Game: ComponentType;
+  export default Game;
+}

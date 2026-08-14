@@ -1,20 +1,22 @@
-import React, { useState, useEffect, Suspense, type ReactNode } from 'react';
+import React, { useState, useEffect, Suspense, type ComponentType, type ReactNode } from 'react';
 import darkTheme from './styles/dark';
 import lightTheme from './styles/light';
 import type { AppStyleSet } from './styles/types';
 
 // Switch which visual theme is shown: 'dark' or 'light'
-const ACTIVE_THEME: 'dark' | 'light' = 'light';
+const ACTIVE_THEME: 'dark' | 'light' = 'dark';
 
 const THEMES: Record<'dark' | 'light', AppStyleSet> = { dark: darkTheme, light: lightTheme };
 const styles = THEMES[ACTIVE_THEME];
 
-// Lazy loading all 5 Micro-Frontends
+// Lazy loading all 7 Micro-Frontends
 const MoodMeter = React.lazy(() => import('remoteMood/MoodMeter'));
 const DayToday = React.lazy(() => import('remoteDayToday/DayToday'));
 const TeamJoin = React.lazy(() => import('remoteTeam/TeamJoin'));
 const Agenda = React.lazy(() => import('remoteAgenda/Agenda'));
-const MiniGame = React.lazy(() => import('remoteGame1/Game'));
+const MiniGame1 = React.lazy(() => import('remoteGame1/Game'));
+const MiniGame2 = React.lazy(() => import('remoteGame2/Game'));
+const MiniGame3 = React.lazy(() => import('remoteGame3/Game'));
 
 function Spinner() {
   return (
@@ -24,13 +26,18 @@ function Spinner() {
   );
 }
 
-function GameLauncher() {
+interface GameLauncherProps {
+  gameName: string;
+  Game: ComponentType;
+}
+
+function GameLauncher({ gameName, Game }: GameLauncherProps) {
   const [started, setStarted] = useState(false);
 
   if (!started) {
     return (
       <div style={styles.gameLauncher}>
-        <button style={styles.startBtn} onClick={() => setStarted(true)}>▶ Start game</button>
+        <button style={styles.startBtn} onClick={() => setStarted(true)}>▶ Start {gameName}</button>
       </div>
     );
   }
@@ -40,7 +47,7 @@ function GameLauncher() {
       <button style={styles.stopBtn} onClick={() => setStarted(false)}>■ Stop game</button>
       <ErrorBoundary>
         <Suspense fallback={<Spinner />}>
-          <MiniGame />
+          <Game />
         </Suspense>
       </ErrorBoundary>
     </div>
@@ -124,7 +131,9 @@ export function App() {
         <section style={styles.card}><ErrorBoundary><Suspense fallback={<Spinner />}><DayToday /></Suspense></ErrorBoundary></section>
         <section style={styles.card}><ErrorBoundary><Suspense fallback={<Spinner />}><Agenda /></Suspense></ErrorBoundary></section>
         <section style={styles.card}><ErrorBoundary><Suspense fallback={<Spinner />}><TeamJoin /></Suspense></ErrorBoundary></section>
-        <section style={styles.card}><GameLauncher /></section>
+        <section style={styles.card}><GameLauncher gameName="Tetris" Game={MiniGame1} /></section>
+        <section style={styles.card}><GameLauncher gameName="2048" Game={MiniGame2} /></section>
+        <section style={styles.card}><GameLauncher gameName="IT Bugggiz" Game={MiniGame3} /></section>
         <section style={styles.card}>
           <div style={styles.adBlock}>
             <p style={styles.adText}>
